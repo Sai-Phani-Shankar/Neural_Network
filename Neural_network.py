@@ -8,7 +8,7 @@ class Neural_Network():
         return Y,Z
 
     def predict(X, W1, b1, W2, b2):
-        Y, _ = forward(X, W1, b1, W2, b2)
+        Y, _ = Neural_Network.forward(X, W1, b1, W2, b2)
         return np.round(Y)
 
     def _w2(Z, T, Y):
@@ -39,18 +39,18 @@ def fit():
     learning_rate = 0.0001
     for i in range(100000):
         pY, Z = Neural_Network.forward(X, W1, b1, W2, b2)
-        plt = cost(Y, pY)
+        plt = Neural_Network.cost(Y, pY)
         prediction = Neural_Network.predict(X, W1, b1, W2, b2)
 
         plot.append(plt)
-        W2 += learning_rate * (_w2(Z, Y, pY))
-        b2 += learning_rate * (_b2(Y, pY)) 
-        W1 += learning_rate * (_w1(X, Z, Y, pY, W2))
-        b1 += learning_rate * (_b1(Z, Y, pY, W2)) 
+        W2 += learning_rate * (Neural_Network._w2(Z, Y, pY))
+        b2 += learning_rate * (Neural_Network._b2(Y, pY)) 
+        W1 += learning_rate * (Neural_Network._w1(X, Z, Y, pY, W2))
+        b1 += learning_rate * (Neural_Network._b1(Z, Y, pY, W2)) 
         if i % 10000 == 0:
             print(plt)
-            #print("actual",Y)
-            #print("predicted",prediction)
+            print("actual",Y)
+            print("predicted",prediction)
 
     print("Accuracy:", np.mean(prediction == Y) * 100)
     plots.plot(plot)
